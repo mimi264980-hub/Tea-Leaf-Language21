@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tea Leaf Language - Ta'ang</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div style="padding: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+        <button class="modal-close-btn" onclick="toggleModal('todo-modal')">To-Do List</button>
+        <button class="modal-close-btn" onclick="toggleModal('note-modal')">Note Pad</button>
+        <button class="modal-close-btn" onclick="toggleModal('settings-modal')">Settings</button>
+        <button class="modal-close-btn" onclick="toggleModal('profile-modal')">Profile</button>
+    </div>
+
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>ဆက်တင်များ</h3>
+            <div class="settings-row" style="display:flex; justify-content: space-between; margin-bottom: 20px;">
+                <span>တုန်ခါမှု (Vibration)</span>
+                <label class="switch">
+                    <input type="checkbox" id="vibration-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button onclick="toggleModal('settings-modal')" class="modal-close-btn">ပိတ်မည်</button>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content note-box">
+            <h3>ကျွန်ုပ်၏ အချက်အလက်</h3>
+            <div class="streak-container">
+                <div class="streak-number" style="font-size: 3rem; color: var(--tea-green);">၅</div>
+            </div>
+            <p class="streak-description">လက်ဖက်ညွန့် ၅ ညွန့် ရှင်သန်နေပြီ</p>
+            <button onclick="toggleModal('profile-modal')" class="modal-close-btn">ပိတ်မည်</button>
+        </div>
+    </div>
+
+    <div id="note-modal" class="modal-overlay">
+        <div class="modal-content note-box">
+            <h3>မှတ်စု (Notes)</h3>
+            <div class="note-toolbar" style="margin-bottom: 10px;">
+                <button class="tool-btn" onclick="document.execCommand('bold')">B</button>
+                <button class="tool-btn" onclick="document.execCommand('italic')">I</button>
+            </div>
+            <div id="note-input" class="note-area" contenteditable="true" style="border: 1px solid #ccc; min-height: 100px; padding: 10px; margin-bottom: 10px; text-align: left; background: white; color: black;"></div>
+            <button onclick="saveNote()" class="save-btn" style="margin-bottom: 5px; background: var(--tea-green); color: white; border: none; padding: 10px; width: 100%; border-radius: 10px;">သိမ်းမည်</button>
+            <button onclick="toggleModal('note-modal')" class="modal-close-btn">ပိတ်မည်</button>
+        </div>
+    </div>
+
+    <div id="todo-modal" class="modal-overlay">
+        <div class="modal-content note-box">
+            <h3>လုပ်ဆောင်ရန် (To-Do)</h3>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-field" class="todo-input" placeholder="အကြောင်းအရာ..." aria-label="Todo Input">
+                <button onclick="addTodo()" class="btn-add-todo">
+                    <span class="material-icons-round">add_task</span>
+                </button>
+            </div>
+            <input type="text" id="todo-search-field" oninput="renderTodos(todos)" placeholder="ရှာဖွေရန်..." style="width: 100%; margin-top: 10px; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
+            
+            <div id="todo-list-container" class="todo-list" style="margin-top: 15px; max-height: 300px; overflow-y: auto;"></div>
+            
+            <button id="clear-all-btn" onclick="clearAllTodos()" class="btn-clear-all" style="margin: 10px 0; color: #ff4444; background: none; border: none; cursor: pointer;">အားလုံးကို ဖျက်မည်</button>
+            <button onclick="toggleModal('todo-modal')" class="modal-close-btn">ပိတ်မည်</button>
+        </div>
+    </div>
+
+    <div id="loading-indicator" style="display:none;">ခေတ္တစောင့်ပါ...</div>
+
+    <script src="utils.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
